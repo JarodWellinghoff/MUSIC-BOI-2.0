@@ -8,7 +8,7 @@
 
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { EmbedBuilder } = require('discord.js');
-const { MessageActionRow, MessageButton } = require('discord.js');
+const { ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
 const { getVoiceConnection } = require('@discordjs/voice');
 
 module.exports = {
@@ -27,16 +27,16 @@ module.exports = {
         // Check if the user is an Admin, Owner, or DJ
         if (interaction.member.roles.cache.some(role => role.name === 'Admin' || role.name === 'Owner' || role.name === 'DJ')) {
             // Create a row with a 'yes' and 'no' button
-            const row = new MessageActionRow()
+            const row = new ActionRowBuilder()
                 .addComponents(
-                    new MessageButton()
+                    new ButtonBuilder()
                         .setCustomId('yes')
                         .setLabel('Yes')
-                        .setStyle('SUCCESS'),
-                    new MessageButton()
+                        .setStyle(ButtonStyle.Success),
+                    new ButtonBuilder()
                         .setCustomId('no')
                         .setLabel('No')
-                        .setStyle('DANGER'),
+                        .setStyle(ButtonStyle.Danger),
                 );
             // Send an embeded message with a 'yes' and 'no' button asking if they want the queue to be cleared
             const embed = new EmbedBuilder()
@@ -71,20 +71,32 @@ module.exports = {
                         .setTitle('Success!')
                         .setDescription('The bot has disconnected from the voice channel')
                         .setColor(0x00ff00);
+                    // End the collector
+                    collector.stop('no');
                     return void interaction.followUp({ embeds: [embed] });
                 }
             });
             // If the user does not select a button within 5 seconds then the bot will diconnect from the voice channel without clearing the queue
-            collector.on('end', async collected => {
-                // Disconnect from the voice channel
-                connection.destroy();
-                // Send an embeded message saying that the bot has disconnected from the voice channel
-                const embed = new EmbedBuilder()
-                    .setTitle('Success!')
-                    .setDescription('The bot has disconnected from the voice channel')
-                    .setColor(0x00ff00);
-                return void interaction.followUp({ embeds: [embed] });
-            });
+            collector.on('end', async (_, reason) => {
+                if (reason === 'time') {
+                    // Disconnect from the voice channel
+                    connection.destroy();
+                    // Send an embeded message saying that the bot has disconnected from the voice channel
+                    const embed = new EmbedBuilder()
+                        .setTitle('Success!')
+                        .setDescription('The bot has disconnected from the voice channel')
+                        .setColor(0x00ff00);
+                    return void interaction.followUp({ embeds: [embed] });
+                } else if (reason === 'no') {
+                    // Create embeded message saying that the bot has disconnected from the voice channel
+                    const embed = new EmbedBuilder()
+                        .setTitle('Success!')
+                        .setDescription('The bot has disconnected from the voice channel')
+                        .setColor(0x00ff00);
+                    return void interaction.followUp({ embeds: [embed] });
+                }
+            }
+            );
         } else {
             // If the user does not have the role Admin, Owner, or DJ then send an embeded error message
             const embed = new EmbedBuilder()
