@@ -116,7 +116,7 @@ module.exports = {
         collector.on('end', async (_, reason) => {
             if (reason === 'votes reached') {
                 // Create a new embed message with the skipped message
-                await interaction.followUp({ embeds: [skipEmbed] });
+                await interaction.update({ embeds: [skipEmbed] });
             } else {
                 // Create a embed message for when the amount of votes is not reached in 10 seconds
                 const votesNotReachedEmbed = new EmbedBuilder()
@@ -127,7 +127,7 @@ module.exports = {
                         text: `Requested by ${interaction.user.tag}`,
                         iconURL: interaction.user.displayAvatarURL()
                     });
-                await interaction.followUp({ embeds: [votesNotReachedEmbed] });
+                await interaction.update({ embeds: [votesNotReachedEmbed] });
             }
         });
     }

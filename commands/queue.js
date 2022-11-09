@@ -37,18 +37,26 @@ module.exports = {
         const titleEmbed = new EmbedBuilder()
             .setTitle('Queue')
             .setDescription(`Current track: [${currentTrack.title}](${currentTrack.url})`)
+            .setThumbnail(track.thumbnail)
             .setColor('#00ff00');
-        embeds.push(titleEmbed);
+        embeds.push([titleEmbed]);
 
         for (let i = 0; i < tracks.length; i += maxPerPage) {
+            const pageOfEmbeds = [];
             const current = tracks.slice(i, i + maxPerPage);
-            const description = current.map((track, index) => `${index + 1 + i}. [${track.title}](${track.url})`).join('\n');
-            const embed = new EmbedBuilder()
-                .setDescription(description)
-                .setColor('#00ff00');
-            embeds.push(embed);
+            void current.map((track, index) => {
+                const embed = new EmbedBuilder()
+                    .setDescription(`${index + 1 + i}. [${track.title}](${track.url})`)
+                    .setThumbnail(track.thumbnail)
+                    .setColor('#00ff00');
+                if (index === 0) {
+                    embed.setTitle('Queue');
+                }
+                pageOfEmbeds.push(embed);
+            });
+            embeds.push(pageOfEmbeds);
         }
-        console.log(queue.length)
+
         if (queue.tracks.length !== 0) {
             const row = new ActionRowBuilder()
                 .addComponents(
@@ -61,11 +69,9 @@ module.exports = {
                         .setLabel('Next')
                         .setStyle(ButtonStyle.Primary)
                 );
-
-
             let page = 0;
             const embed = embeds[page];
-            const message = await interaction.followUp({ embeds: [embed], components: [row] });
+            const message = await interaction.followUp({ embeds: embed, components: [row] });
             const filter = (interaction) => interaction.user.id === interaction.user.id;
             const collector = message.createMessageComponentCollector({ filter, time: 60000 });
             collector.on('collect', async (interaction) => {
@@ -74,11 +80,11 @@ module.exports = {
                 } else {
                     page = page + 1 < embeds.length ? ++page : 0;
                 }
-                await interaction.update({ embeds: [embeds[page]], components: [row] });
+                await interaction.update({ embeds: embeds[page], components: [row] });
             }
             );
         } else {
-            return void interaction.followUp({ embeds: [embeds[0]] });
+            return void interaction.followUp({ embeds: embeds[0] });
         }
     }
 };

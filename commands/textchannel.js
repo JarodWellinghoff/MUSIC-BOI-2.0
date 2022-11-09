@@ -58,8 +58,7 @@ module.exports = {
 
             }
         }
-        // Check if the user is an Admin or Owner
-        console.log(interaction.member.permissions);
+        // Check if the user is an Admin or Owner\
         let isAdmin = false;
         try {
             isAdmin = interaction.member.permissions.has('ADMINISTRATOR');
