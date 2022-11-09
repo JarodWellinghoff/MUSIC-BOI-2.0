@@ -95,8 +95,7 @@ module.exports = {
                         .setColor(0x00ff00);
                     return void interaction.followUp({ embeds: [embed] });
                 }
-            }
-            );
+            });
         } else {
             // If the user does not have the role Admin, Owner, or DJ then send an embeded error message
             const embed = new EmbedBuilder()
