@@ -21,22 +21,14 @@ module.exports = {
             const embed = new EmbedBuilder()
                 .setTitle('Error!')
                 .setDescription('There is no music playing!')
-                .setColor('#ff0000')
-                .setFooter({
-                    text: `Requested by ${interaction.user.tag}`,
-                    iconURL: interaction.user.displayAvatarURL()
-                });
+                .setColor('#ff0000');
             return void interaction.followUp({ embeds: [embed] });
         }
         const currentTrack = queue.current;
         const embed = new EmbedBuilder()
             .setTitle('Now Playing')
             .setDescription(`[${currentTrack.title}](${currentTrack.url})`)
-            .setImage(currentTrack.thumbnail)
-            .setFooter({
-                text: `${queue.createProgressBar()}`,
-                iconURL: interaction.user.displayAvatarURL()
-            });
+            .setImage(currentTrack.thumbnail);
         return void interaction.followUp({ embeds: [embed] });
     }
 };

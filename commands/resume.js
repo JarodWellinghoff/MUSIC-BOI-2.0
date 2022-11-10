@@ -20,11 +20,7 @@ module.exports = {
             const embed = new EmbedBuilder()
                 .setTitle('Error!')
                 .setDescription('There is no music paused!')
-                .setColor('#ff0000')
-                .setFooter({
-                    text: `Requested by ${interaction.user.tag}`,
-                    iconURL: interaction.user.displayAvatarURL()
-                });
+                .setColor('#ff0000');
             return void interaction.followUp({ embeds: [embed] });
         }
         const success = queue.setPaused(false);
@@ -32,11 +28,7 @@ module.exports = {
         const embed = new EmbedBuilder()
             .setTitle(success ? 'Resumed!' : 'Error!')
             .setDescription(success ? 'Resumed the music!' : 'Music is already playing!')
-            .setColor(success ? '#00ff00' : '#ff0000')
-            .setFooter({
-                text: `Requested by ${interaction.user.tag}`,
-                iconURL: interaction.user.displayAvatarURL()
-            });
+            .setColor(success ? '#00ff00' : '#ff0000');
         return void interaction.followUp({ embeds: [embed] });
     }
 };

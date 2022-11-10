@@ -71,11 +71,7 @@ module.exports = {
             const embed = new EmbedBuilder()
                 .setTitle('Error!')
                 .setDescription('You need to be an Admin or Owner to use this command!')
-                .setColor('#ff0000')
-                .setFooter({
-                    text: `Requested by ${interaction.user.tag}`,
-                    iconURL: interaction.user.displayAvatarURL()
-                });
+                .setColor('#ff0000');
             return void interaction.followUp({ embeds: [embed] });
         }
         // Get the guild's json file
@@ -88,11 +84,7 @@ module.exports = {
                 const embed = new EmbedBuilder()
                     .setTitle('Error!')
                     .setDescription('This text channel is already in the database!')
-                    .setColor('#ff0000')
-                    .setFooter({
-                        text: `Requested by ${interaction.user.tag}`,
-                        iconURL: interaction.user.displayAvatarURL()
-                    });
+                    .setColor('#ff0000');
                 return void interaction.followUp({ embeds: [embed] });
             }
             // Add the current text channel to the database
@@ -103,11 +95,7 @@ module.exports = {
             const embed = new EmbedBuilder()
                 .setTitle('Success!')
                 .setDescription('Added the current text channel to the database!')
-                .setColor('#00ff00')
-                .setFooter({
-                    text: `Requested by ${interaction.user.tag}`,
-                    iconURL: interaction.user.displayAvatarURL()
-                });
+                .setColor('#00ff00');
             return void interaction.followUp({ embeds: [embed] });
         } else if (action === 'remove') {
             // Check if the current text channel is not in the database
@@ -116,11 +104,7 @@ module.exports = {
                 const embed = new EmbedBuilder()
                     .setTitle('Error!')
                     .setDescription('This text channel is not in the database!')
-                    .setColor('#ff0000')
-                    .setFooter({
-                        text: `Requested by ${interaction.user.tag}`,
-                        iconURL: interaction.user.displayAvatarURL()
-                    });
+                    .setColor('#ff0000');
                 return void interaction.followUp({ embeds: [embed] });
             }
             // Remove the current text channel from the database
@@ -131,11 +115,7 @@ module.exports = {
             const embed = new EmbedBuilder()
                 .setTitle('Success!')
                 .setDescription('Removed the current text channel from the database!')
-                .setColor('#00ff00')
-                .setFooter({
-                    text: `Requested by ${interaction.user.tag}`,
-                    iconURL: interaction.user.displayAvatarURL()
-                });
+                .setColor('#00ff00');
             return void interaction.followUp({ embeds: [embed] });
         }
     }

@@ -22,11 +22,7 @@ module.exports = {
             const embed = new EmbedBuilder()
                 .setTitle('Error!')
                 .setDescription('There is no music paused!')
-                .setColor('#ff0000')
-                .setFooter({
-                    text: `Requested by ${interaction.user.tag}`,
-                    iconURL: interaction.user.displayAvatarURL()
-                });
+                .setColor('#ff0000');
             return void interaction.followUp({ embeds: [embed] });
         }
         const currentTrack = queue.current;
@@ -34,10 +30,12 @@ module.exports = {
         const tracks = queue.tracks;
         const embeds = [];
         const maxPerPage = 10;
+        // Amount of pages
+        const pages = Math.ceil(tracks.length / maxPerPage) + 1;
         const titleEmbed = new EmbedBuilder()
-            .setTitle('Queue')
+            .setTitle(`Queue - Page 1/${pages}`)
             .setDescription(`Current track: [${currentTrack.title}](${currentTrack.url})`)
-            .setThumbnail(track.thumbnail)
+            .setThumbnail(currentTrack.thumbnail)
             .setColor('#00ff00');
         embeds.push([titleEmbed]);
 
@@ -45,12 +43,14 @@ module.exports = {
             const pageOfEmbeds = [];
             const current = tracks.slice(i, i + maxPerPage);
             void current.map((track, index) => {
+                // Current page
+                const currentPage = Math.ceil((i + index + 1) / maxPerPage) + 1;
                 const embed = new EmbedBuilder()
                     .setDescription(`${index + 1 + i}. [${track.title}](${track.url})`)
                     .setThumbnail(track.thumbnail)
                     .setColor('#00ff00');
                 if (index === 0) {
-                    embed.setTitle('Queue');
+                    embed.setTitle(`Queue - Page ${currentPage}/${pages}`);
                 }
                 pageOfEmbeds.push(embed);
             });

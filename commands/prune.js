@@ -20,11 +20,7 @@ module.exports = {
             const embed = new EmbedBuilder()
                 .setTitle('Error!')
                 .setDescription('There is no music in the queue!')
-                .setColor('#ff0000')
-                .setFooter({
-                    text: `Requested by ${interaction.user.tag}`,
-                    iconURL: interaction.user.displayAvatarURL()
-                });
+                .setColor('#ff0000');
             return void interaction.followUp({ embeds: [embed] });
         }
         if (!queue.playing) {
@@ -32,11 +28,7 @@ module.exports = {
             const embed = new EmbedBuilder()
                 .setTitle('Error!')
                 .setDescription('There is no music playing!')
-                .setColor('#ff0000')
-                .setFooter({
-                    text: `Requested by ${interaction.user.tag}`,
-                    iconURL: interaction.user.displayAvatarURL()
-                });
+                .setColor('#ff0000');
             return void interaction.followUp({ embeds: [embed] });
         }
         // Get the voice channel that the bot is in
@@ -65,11 +57,7 @@ module.exports = {
             const embed = new EmbedBuilder()
                 .setTitle('Error!')
                 .setDescription('There are no songs to remove!')
-                .setColor('#ff0000')
-                .setFooter({
-                    text: `Requested by ${interaction.user.tag}`,
-                    iconURL: interaction.user.displayAvatarURL()
-                });
+                .setColor('#ff0000');
             return void interaction.followUp({ embeds: [embed] });
         }
         // Remove the songs from the queue
@@ -78,11 +66,7 @@ module.exports = {
         const embed = new EmbedBuilder()
             .setTitle('Success!')
             .setDescription(`Removed ${songsToRemove.length} songs from the queue`)
-            .setColor('#00ff00')
-            .setFooter({
-                text: `Requested by ${interaction.user.tag}`,
-                iconURL: interaction.user.displayAvatarURL()
-            });
+            .setColor('#00ff00');
         return void interaction.followUp({ embeds: [embed] });
     },
 };

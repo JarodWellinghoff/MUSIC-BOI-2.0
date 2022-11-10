@@ -14,7 +14,7 @@ const { EmbedBuilder } = require('discord.js');
 module.exports = {
   name: 'tracksAdd',
   execute(queue, tracks) {
-    console.log(`🎶 | Playlist **${tracks[0].playlist.title}** queued!`);
+    console.log(`[${queue.guild.name}] ${tracks[0].playlist.title} queued!`);
     const embed = new EmbedBuilder()
       .setThumbnail(`${tracks[0].playlist.thumbnail}`)
       .setTitle('Playlist Added')
@@ -27,15 +27,7 @@ module.exports = {
         { name: 'Time until start', value: `${queue.duration}`, inline: true },
       )
       .setURL(`${tracks[0].playlist.url}`)
-      .setColor('#00ff00')
-      .setFooter({
-        text: `Requested by: ${tracks[0].requestedBy.tag}`,
-        iconURL: tracks[0].requestedBy.displayAvatarURL()
-      });
-    // const embed = new EmbedBuilder()
-    //   .setTitle('Playlist Added')
-    //   .setDescription(`🎶 | Playlist **${tracks[0].playlist.title}** queued!`)
-    //   .setColor('#00ff00');
+      .setColor('#00ff00');
     return void queue.metadata.send({ embeds: [embed] });
   },
 };

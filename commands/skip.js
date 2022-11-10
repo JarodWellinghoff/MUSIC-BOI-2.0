@@ -29,11 +29,7 @@ module.exports = {
             const embed = new EmbedBuilder()
                 .setTitle('Error!')
                 .setDescription('There is no music playing!')
-                .setColor('#ff0000')
-                .setFooter({
-                    text: `Requested by ${interaction.user.tag}`,
-                    iconURL: interaction.user.displayAvatarURL()
-                });
+                .setColor('#ff0000');
             return void interaction.followUp({ embeds: [embed] });
         }
         const currentTrack = queue.current;
@@ -49,19 +45,11 @@ module.exports = {
         const votesNeededEmbed = new EmbedBuilder()
             .setTitle('Votes Needed')
             .setDescription(`(1/${votesNeeded}) votes needed to skip the song`)
-            .setColor('#ffff00')
-            .setFooter({
-                text: `Requested by ${interaction.user.tag}`,
-                iconURL: interaction.user.displayAvatarURL()
-            });
+            .setColor('#ffff00');
         const skipEmbed = new EmbedBuilder()
             .setTitle('Skipped')
             .setDescription('Skipped the song')
-            .setColor('#00ff00')
-            .setFooter({
-                text: `Requested by ${interaction.user.tag}`,
-                iconURL: interaction.user.displayAvatarURL()
-            });
+            .setColor('#00ff00');
         const skipButton = new ButtonBuilder()
             .setCustomId('skip')
             .setLabel('Skip')
@@ -104,11 +92,7 @@ module.exports = {
                     const votesNeededEmbed = new EmbedBuilder()
                         .setTitle('Votes Needed')
                         .setDescription(`(${guildSettings.skipVotes.length}/${votesNeeded}) votes needed to skip the song`)
-                        .setColor('#ffff00')
-                        .setFooter({
-                            text: `Requested by ${interaction.user.tag}`,
-                            iconURL: interaction.user.displayAvatarURL()
-                        });
+                        .setColor('#ffff00');
                     await i.update({ embeds: [votesNeededEmbed] });
                 }
             }
@@ -122,11 +106,7 @@ module.exports = {
                 const votesNotReachedEmbed = new EmbedBuilder()
                     .setTitle('Votes Not Reached')
                     .setDescription(`The amount of votes needed to skip the song was not reached in 10 seconds`)
-                    .setColor('#ff0000')
-                    .setFooter({
-                        text: `Requested by ${interaction.user.tag}`,
-                        iconURL: interaction.user.displayAvatarURL()
-                    });
+                    .setColor('#ff0000');
                 await interaction.update({ embeds: [votesNotReachedEmbed] });
             }
         });

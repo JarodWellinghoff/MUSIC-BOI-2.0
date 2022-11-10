@@ -25,11 +25,7 @@ module.exports = {
             const embed = new EmbedBuilder()
                 .setTitle('Error!')
                 .setDescription('You need to be an Admin, Owner, or a DJ to use this command!')
-                .setColor('#ff0000')
-                .setFooter({
-                    text: `Requested by ${interaction.user.tag}`,
-                    iconURL: interaction.user.displayAvatarURL()
-                });
+                .setColor('#ff0000');
             return void interaction.followUp({ embeds: [embed] });
         }
         if (!queue) {
@@ -37,11 +33,7 @@ module.exports = {
             const embed = new EmbedBuilder()
                 .setTitle('Error!')
                 .setDescription('There is no music in the queue!')
-                .setColor('#ff0000')
-                .setFooter({
-                    text: `Requested by ${interaction.user.tag}`,
-                    iconURL: interaction.user.displayAvatarURL()
-                });
+                .setColor('#ff0000');
             return void interaction.followUp({ embeds: [embed] });
         }
 
@@ -50,11 +42,7 @@ module.exports = {
             const embed = new EmbedBuilder()
                 .setTitle('Error!')
                 .setDescription('There is no music playing!')
-                .setColor('#ff0000')
-                .setFooter({
-                    text: `Requested by ${interaction.user.tag}`,
-                    iconURL: interaction.user.displayAvatarURL()
-                });
+                .setColor('#ff0000');
             return void interaction.followUp({ embeds: [embed] });
         }
 
@@ -63,11 +51,7 @@ module.exports = {
         const embed = new EmbedBuilder()
             .setTitle(success ? 'Skipped!' : 'Error!')
             .setDescription(success ? 'Skipped the song!' : 'There is no song to skip!')
-            .setColor(success ? '#00ff00' : '#ff0000')
-            .setFooter({
-                text: `Requested by ${interaction.user.tag}`,
-                iconURL: interaction.user.displayAvatarURL()
-            });
+            .setColor(success ? '#00ff00' : '#ff0000');
         return void interaction.followUp({ embeds: [embed] });
     }
 };

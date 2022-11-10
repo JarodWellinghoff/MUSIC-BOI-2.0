@@ -27,30 +27,18 @@ module.exports = {
                 const embed = new EmbedBuilder()
                     .setTitle('Error!')
                     .setDescription(`Command \`/${commandName}\` does not exist!`)
-                    .setColor('#ff0000')
-                    .setFooter({
-                        text: `Requested by ${interaction.user.tag}`,
-                        iconURL: interaction.user.displayAvatarURL()
-                    });
+                    .setColor('#ff0000');
                 return void interaction.followUp({ embeds: [embed] });
             }
             const embed = new EmbedBuilder()
                 .setTitle(`Detailed description of \`/${commandName}\``)
                 .setDescription(`${command.detailedDescription}`)
-                .setColor('#0099ff')
-                .setFooter({
-                    text: `Requested by ${interaction.user.tag}`,
-                    iconURL: interaction.user.displayAvatarURL()
-                });
+                .setColor('#0099ff');
             return void interaction.followUp({ embeds: [embed] });
         }
         const embed = new EmbedBuilder()
             .setTitle('List of commands:')
-            .setColor('#0099ff')
-            .setFooter({
-                text: `Requested by ${interaction.user.tag}`,
-                iconURL: interaction.user.displayAvatarURL()
-            });
+            .setColor('#0099ff');
         // Read this directory and get all the files in it
         const commandFiles = fs.readdirSync(path.join(__dirname)).filter(file => file.endsWith('.js'));
         for (const file of commandFiles) {

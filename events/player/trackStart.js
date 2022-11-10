@@ -12,7 +12,7 @@ const { EmbedBuilder } = require('discord.js');
 module.exports = {
   name: 'trackStart',
   execute(queue, track) {
-    console.log(`🎶 | Started playing: ${track.title} in ${queue.connection.channel.name}!`,);
+    console.log(`[${queue.guild.name}] Started playing: ${track.title} in ${queue.connection.channel.name}`,);
     const embed = new EmbedBuilder()
       .setImage(`${track.thumbnail}`)
       .setTitle('Track Started')
@@ -22,11 +22,7 @@ module.exports = {
         { name: 'Duration', value: `${track.duration}`, inline: true },
       )
       .setURL(`${track.url}`)
-      .setColor('#00ff00')
-      .setFooter({
-        text: `Requested by: ${track.requestedBy.tag}`,
-        iconURL: track.requestedBy.displayAvatarURL()
-      });
+      .setColor('#00ff00');
     return void queue.metadata.send({ embeds: [embed] });
   },
 };

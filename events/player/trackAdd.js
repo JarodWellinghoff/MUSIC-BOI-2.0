@@ -13,7 +13,7 @@ const { EmbedBuilder } = require('discord.js');
 module.exports = {
   name: 'trackAdd',
   execute(queue, track) {
-    console.log(`🎶 | Track **${track.title}** queued!`);
+    console.log(`[${queue.guild.name}] ${track.title} queued!`);
     const embed = new EmbedBuilder()
       .setThumbnail(`${track.thumbnail}`)
       .setTitle('Track Added')
@@ -23,11 +23,7 @@ module.exports = {
         { name: 'Duration', value: `${track.duration}`, inline: true },
       )
       .setURL(`${track.url}`)
-      .setColor('#00ff00')
-      .setFooter({
-        text: `Requested by: ${track.requestedBy.tag}`,
-        iconURL: track.requestedBy.displayAvatarURL()
-      });
+      .setColor('#00ff00');
 
     if (queue.playing) {
       embed.addFields(

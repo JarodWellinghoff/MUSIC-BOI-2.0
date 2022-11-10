@@ -3,7 +3,7 @@ const { EmbedBuilder } = require('discord.js');
 module.exports = {
   name: 'connectionCreate',
   execute(queue) {
-    console.log(`Connected to ${queue.connection.channel.name}!`);
+    console.log(`[${queue.guild.name}] Connected to ${queue.connection.channel.name}!`);
     const embed = new EmbedBuilder()
       .setTitle('Connected')
       .setDescription(`Connected to ${queue.connection.channel.name}!`)

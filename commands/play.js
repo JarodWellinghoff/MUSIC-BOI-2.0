@@ -18,9 +18,7 @@ module.exports = {
     async execute(interaction) {
         await interaction.deferReply();
         console.log('Play command executed');
-
         const song = interaction.options.getString('song');
-        console.log(`Song: ${song}`);
         const queue = interaction.client.player.createQueue(interaction.guild, {
             metadata: interaction.channel
         });
@@ -39,6 +37,7 @@ module.exports = {
                 .setColor('#ff0000');
             return void interaction.followUp({ embeds: [embed] });
         }
+        console.log(searchResult);
 
         try {
             if (!queue.connection)

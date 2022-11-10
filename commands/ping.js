@@ -18,11 +18,7 @@ module.exports = {
         const embed = new EmbedBuilder()
             .setTitle('Pong!')
             .setDescription(`Latency is ${Date.now() - interaction.createdTimestamp}ms`)
-            .setColor('#0099ff')
-            .setFooter({
-                text: `Requested by ${interaction.user.tag}`,
-                iconURL: interaction.user.displayAvatarURL()
-            });
+            .setColor('#0099ff');
         return void interaction.followUp({ embeds: [embed] });
     },
 };
