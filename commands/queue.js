@@ -81,8 +81,7 @@ module.exports = {
                     page = page + 1 < embeds.length ? ++page : 0;
                 }
                 await interaction.update({ embeds: embeds[page], components: [row] });
-            }
-            );
+            });
         } else {
             return void interaction.followUp({ embeds: embeds[0] });
         }
